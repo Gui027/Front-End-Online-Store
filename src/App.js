@@ -32,8 +32,8 @@ export default class App extends Component {
     api.getCategories()
       .then((data) => console.log(data));
 
-    api.getProductsFromCategoryAndQuery('MLB5672', 'computador')
-      .then((data) => console.log(data));
+    /* api.getProductsFromCategoryAndQuery('MLB5672', 'computador')
+      .then((data) => console.log(data)); */
   }
 
   render() {
