@@ -4,7 +4,7 @@ import CategoryList from './CategoryList';
 import Loading from './Loading';
 import ProductList from './ProductList';
 import * as api from '../services/api';
-
+//
 class MainPage extends Component {
   constructor(props) {
     super(props);
