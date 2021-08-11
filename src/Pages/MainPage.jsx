@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShoppingCartIcon from '../Imgs/shopping-cart-solid.svg';
-import CategoryList from './CategoryList';
-import Loading from './Loading';
-import ProductList from './ProductList';
-import * as api from '../services/api';
+import CategoryList from '../Components/CategoryList';
+import Loading from '../Components/Loading';
+import ProductList from '../Components/ProductList';
 //
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      search: undefined,
-    };
     this.printList = this.printList.bind(this);
   }
 
@@ -29,8 +25,14 @@ class MainPage extends Component {
   }
 
   render() {
-    const { inputSearch, categories, loadingCategories, handleChange } = this.props;
-    const { search } = this.state;
+    const {
+      inputSearch,
+      categories,
+      loadingCategories,
+      handleChange,
+      searchRequest,
+      search } = this.props;
+
     const loadingElement = <Loading />;
     return (
       <div className="main">
@@ -54,17 +56,9 @@ class MainPage extends Component {
               data-testid="query-button"
               type="submit"
               className="btn btn-default"
-              onClick={ () => {
-                api.getProductsFromCategoryAndQuery('', inputSearch)
-                  .then((apiSearch) => {
-                    this.setState({
-                      search: apiSearch.results,
-                    });
-                  });
-              } }
+              onClick={ searchRequest }
             >
               Pesquisar
-
             </button>
             Digite algum termo de pesquisa ou escolha uma categoria.
           </label>
@@ -91,6 +85,10 @@ MainPage.propTypes = {
   loadingCategories: PropTypes.bool.isRequired,
   inputSearch: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  searchRequest: PropTypes.func.isRequired,
+  search: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
 };
 
 export default MainPage;
