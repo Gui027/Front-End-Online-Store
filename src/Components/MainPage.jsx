@@ -9,14 +9,26 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: [],
+      search: undefined,
     };
+    this.printList = this.printList.bind(this);
   }
 
-  componentDidUpdate() {}
+  printList(search) {
+    return search.map((product) => {
+      if (search.length !== 0) {
+        return (<ProductList
+          key={ product.title }
+          produtos={ product }
+        />);
+      }
+      return <p key="0">Nenhum produto foi encontrado</p>;
+    });
+  }
 
   render() {
     const { inputSearch, categories, loadingCategories, handleChange } = this.props;
+    const { search } = this.state;
     const loadingElement = <Loading />;
     return (
       <div className="main">
@@ -46,7 +58,6 @@ class MainPage extends Component {
                     this.setState({
                       search: apiSearch.results,
                     });
-                    this.state.search.map((product) => (<ProductList produtos={ product } key={ product.title } />));
                   });
               } }
             >
@@ -55,6 +66,7 @@ class MainPage extends Component {
             </button>
             Digite algum termo de pesquisa ou escolha uma categoria.
           </label>
+          { search ? this.printList(search) : <p> </p> }
         </div>
       </div>
     );
