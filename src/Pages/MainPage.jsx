@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShoppingCartIcon from '../Imgs/shopping-cart-solid.svg';
-import CategoryList from './CategoryList';
-import Loading from './Loading';
-import ProductList from './ProductList';
+import CategoryList from '../Components/CategoryList';
+import Loading from '../Components/Loading';
+import ProductList from '../Components/ProductList';
 import * as api from '../services/api';
 //
 class MainPage extends Component {
