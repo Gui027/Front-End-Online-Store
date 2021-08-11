@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import MainPage from './Components/MainPage';
+import MainPage from './Pages/MainPage';
 import * as api from './services/api';
 
 import './App.css';
