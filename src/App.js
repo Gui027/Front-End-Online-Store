@@ -14,8 +14,10 @@ export default class App extends Component {
       categories: [],
       inputSearch: '',
       shoppingCart: [],
+      search: undefined,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.searchRequest = this.searchRequest.bind(this);
   }
 
   componentDidMount() {
@@ -37,8 +39,23 @@ export default class App extends Component {
     });
   }
 
+  searchRequest() {
+    const { inputSearch } = this.state;
+    api.getProductsFromCategoryAndQuery('', inputSearch)
+      .then((apiSearch) => {
+        this.setState({
+          search: apiSearch.results,
+        });
+      });
+  }
+
   render() {
-    const { categories, loadingCategories, inputSearch, shoppingCart } = this.state;
+    const {
+      categories,
+      loadingCategories,
+      inputSearch,
+      shoppingCart,
+      search } = this.state;
 
     return (
       <BrowserRouter>
@@ -51,6 +68,8 @@ export default class App extends Component {
               loadingCategories={ loadingCategories }
               handleChange={ this.handleChange }
               inputSearch={ inputSearch }
+              searchRequest={ this.searchRequest }
+              search={ search }
             />)
           }
         />
