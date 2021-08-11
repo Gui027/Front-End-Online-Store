@@ -10,7 +10,6 @@ export default class ProductList extends Component {
         <span>{ title }</span>
         <img src={ thumbnail } alt="img" />
         <span>{ price }</span>
-        <p>ola</p>
       </div>
     );
   }
