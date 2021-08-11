@@ -2,10 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CategoryList from './CategoryList';
 import Loading from './Loading';
-
+import ProductList from './ProductList';
+import * as api from '../services/api';
+//
 class MainPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: undefined,
+    };
+    this.printList = this.printList.bind(this);
+  }
+
+  printList(search) {
+    return search.map((product) => {
+      if (search.length !== 0) {
+        return (<ProductList
+          key={ product.title }
+          produtos={ product }
+        />);
+      }
+      return <p key="0">Nenhum produto foi encontrado</p>;
+    });
+  }
+
   render() {
     const { inputSearch, categories, loadingCategories, handleChange } = this.props;
+    const { search } = this.state;
     const loadingElement = <Loading />;
     return (
       <div className="main">
@@ -18,14 +41,32 @@ class MainPage extends Component {
         <div className="search">
           <label htmlFor="input-search" data-testid="home-initial-message">
             <input
+              data-testid="query-input"
               type="text"
               value={ inputSearch }
               name="inputSearch"
               id="input-search"
               onChange={ handleChange }
             />
+            <button
+              data-testid="query-button"
+              type="submit"
+              className="btn btn-default"
+              onClick={ () => {
+                api.getProductsFromCategoryAndQuery('', inputSearch)
+                  .then((apiSearch) => {
+                    this.setState({
+                      search: apiSearch.results,
+                    });
+                  });
+              } }
+            >
+              Pesquisar
+
+            </button>
             Digite algum termo de pesquisa ou escolha uma categoria.
           </label>
+          { search ? this.printList(search) : <p> </p> }
         </div>
       </div>
     );
