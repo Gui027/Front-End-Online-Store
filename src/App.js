@@ -18,9 +18,11 @@ export default class App extends Component {
       search: [],
       categoryFilter: '',
       categoryFilterOld: '',
+      productComments: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchRequest = this.searchRequest.bind(this);
+    this.setProductComments = this.setProductComments.bind(this);
   }
 
   componentDidMount() {
@@ -47,11 +49,9 @@ export default class App extends Component {
     });
   }
 
-  refleshCategoryFilterState() {
-    const { categoryFilter } = this.state;
-    this.setState({
-      categoryFilterOld: categoryFilter,
-    });
+  setProductComments(comment) {
+    this.setState(({ productComments }) => ({
+      productComments: [...productComments, comment] }));
   }
 
   searchRequest() {
@@ -64,13 +64,21 @@ export default class App extends Component {
       });
   }
 
+  refleshCategoryFilterState() {
+    const { categoryFilter } = this.state;
+    this.setState({
+      categoryFilterOld: categoryFilter,
+    });
+  }
+
   render() {
     const {
       categories,
       loadingCategories,
       inputSearch,
       shoppingCart,
-      search } = this.state;
+      search,
+      productComments } = this.state;
 
     return (
       <BrowserRouter>
@@ -107,6 +115,8 @@ export default class App extends Component {
                   { ...props }
                   inputSearch={ inputSearch }
                   search={ search }
+                  setProductComments={ this.setProductComments }
+                  productComments={ productComments }
                 />
               );
             }
