@@ -14,7 +14,7 @@ export default class App extends Component {
       loadingCategories: true,
       categories: [],
       inputSearch: '',
-      shoppingCart: [],
+      shoppingCart: [1, 2],
       search: [],
       categoryFilter: '',
       categoryFilterOld: '',
@@ -85,6 +85,7 @@ export default class App extends Component {
               inputSearch={ inputSearch }
               searchRequest={ this.searchRequest }
               search={ search }
+              shoppingCart={ shoppingCart }
             />)
           }
         />
@@ -92,11 +93,6 @@ export default class App extends Component {
           path="/cart"
           render={ () => (<ShoppingCart shoppingCart={ shoppingCart } />) }
         />
-        {/* <Route
-          exact
-          path="/productDetails"
-          render={ () => <ProductDetails produto={ productDetail } /> }
-        /> */}
         <Route
           exact
           path="/productDetails/:id"
