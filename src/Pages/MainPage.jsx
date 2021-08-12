@@ -41,7 +41,7 @@ class MainPage extends Component {
           <h2 className="title-category-list">Categorias:</h2>
           {loadingCategories
             ? loadingElement
-            : <CategoryList categories={ categories } />}
+            : <CategoryList handleChange={ handleChange } categories={ categories } />}
         </div>
         <div className="search">
           <label htmlFor="input-search" data-testid="home-initial-message">
@@ -69,7 +69,7 @@ class MainPage extends Component {
           >
             <img className="cart-icon" alt="cart icon" src={ ShoppingCartIcon } />
           </Link>
-          { search ? this.printList(search) : <p> </p> }
+          { search.length !== 0 ? this.printList(search) : <p> </p> }
         </div>
       </div>
     );
