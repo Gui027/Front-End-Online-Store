@@ -43,3 +43,11 @@ export default class ProductDetails extends Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  title: PropTypes.string,
+  thumbnail: PropTypes.string,
+  price: PropTypes.number,
+  condition: PropTypes.string,
+  id: PropTypes.string,
+}.isRequired;
