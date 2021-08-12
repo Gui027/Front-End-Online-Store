@@ -15,7 +15,9 @@ export default class App extends Component {
       categories: [],
       inputSearch: '',
       shoppingCart: [],
-      search: undefined,
+      search: [],
+      categoryFilter: '',
+      categoryFilterOld: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.searchRequest = this.searchRequest.bind(this);
@@ -29,9 +31,14 @@ export default class App extends Component {
           categories: result,
         }),
       );
+  }
 
-    // api.getProductsFromCategoryAndQuery('MLB5672', 'computador')
-    //   .then((data) => console.log(data));
+  componentDidUpdate() {
+    const { categoryFilter, categoryFilterOld } = this.state;
+    if (categoryFilter !== categoryFilterOld) {
+      this.searchRequest();
+      this.refleshCategoryFilterState();
+    }
   }
 
   handleChange({ target }) {
@@ -40,9 +47,16 @@ export default class App extends Component {
     });
   }
 
+  refleshCategoryFilterState() {
+    const { categoryFilter } = this.state;
+    this.setState({
+      categoryFilterOld: categoryFilter,
+    });
+  }
+
   searchRequest() {
-    const { inputSearch } = this.state;
-    api.getProductsFromCategoryAndQuery('', inputSearch)
+    const { inputSearch, categoryFilter } = this.state;
+    api.getProductsFromCategoryAndQuery(categoryFilter, inputSearch)
       .then((apiSearch) => {
         this.setState({
           search: apiSearch.results,
@@ -86,7 +100,17 @@ export default class App extends Component {
         <Route
           exact
           path="/productDetails/:id"
-          render={ (props) => <ProductDetails { ...props } /> }
+          render={ (props) => {
+            if (props) {
+              return (
+                <ProductDetails
+                  { ...props }
+                  inputSearch={ inputSearch }
+                  search={ search }
+                />
+              );
+            }
+          } }
         />
       </BrowserRouter>
     );

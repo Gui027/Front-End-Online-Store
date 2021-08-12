@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as api from '../services/api';
+import PropTypes from 'prop-types';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -7,18 +7,19 @@ export default class ProductDetails extends Component {
     this.state = {
       productDetail: undefined,
     };
-    // this.requestProductDetail = this.requestProductDetail.bind(this);
+    this.getProductDetails = this.getProductDetails.bind(this);
   }
 
   componentDidMount() {
-    const { match } = this.props;
+    this.getProductDetails();
+  }
+
+  getProductDetails() {
+    const { match, search } = this.props;
     const { id } = match.params;
-    api.getProductsFromCategoryAndQuery(id, undefined)
-      .then((apiSearch) => {
-        this.setState({
-          productDetail: apiSearch,
-        });
-      });
+    this.setState({
+      productDetail: search.filter((product) => product.id === id)[0],
+    });
   }
 
   render() {
@@ -43,3 +44,11 @@ export default class ProductDetails extends Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  title: PropTypes.string,
+  thumbnail: PropTypes.string,
+  price: PropTypes.number,
+  condition: PropTypes.string,
+  id: PropTypes.string,
+}.isRequired;
