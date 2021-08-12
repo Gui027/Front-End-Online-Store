@@ -5,6 +5,7 @@ import * as api from './services/api';
 
 import './App.css';
 import ShoppingCart from './Pages/ShoppingCart';
+import ProductDetails from './Pages/ProductDetails';
 
 export default class App extends Component {
   constructor() {
@@ -76,6 +77,16 @@ export default class App extends Component {
         <Route
           path="/cart"
           render={ () => (<ShoppingCart shoppingCart={ shoppingCart } />) }
+        />
+        {/* <Route
+          exact
+          path="/productDetails"
+          render={ () => <ProductDetails produto={ productDetail } /> }
+        /> */}
+        <Route
+          exact
+          path="/productDetails/:id"
+          render={ (props) => <ProductDetails { ...props } /> }
         />
       </BrowserRouter>
     );

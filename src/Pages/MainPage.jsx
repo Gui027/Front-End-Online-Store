@@ -16,7 +16,8 @@ class MainPage extends Component {
     return search.map((product) => {
       if (search.length !== 0) {
         return (<ProductList
-          key={ product.title }
+          id={ product.id }
+          key={ product.id }
           produtos={ product }
         />);
       }
