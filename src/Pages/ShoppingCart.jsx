@@ -24,6 +24,23 @@ export default class ShoppingCart extends Component {
           <img className="cart-icon" alt="cart icon" src={ ShoppingCartIcon } />
         </Link>
         {emptyCart && this.elementShoppingCartEmpty()}
+        <div>
+          {
+            shoppingCart.map((product, i) => {
+              const array = shoppingCart.filter((p) => p.id === product.id);
+              const cont = array.length;
+              if (i > 0 && product.id === shoppingCart[i - 1].id) {
+                return undefined;
+              }
+              return (
+                <div key={ product.title }>
+                  <p data-testid="shopping-cart-product-name">{ product.title }</p>
+                  <p data-testid="shopping-cart-product-quantity">{ cont }</p>
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
     );
   }

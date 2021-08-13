@@ -74,6 +74,7 @@ export default class App extends Component {
 
     return (
       <BrowserRouter>
+
         <Route
           exact
           path="/"
@@ -85,18 +86,16 @@ export default class App extends Component {
               inputSearch={ inputSearch }
               searchRequest={ this.searchRequest }
               search={ search }
+              shoppingCart={ shoppingCart }
             />)
           }
         />
+
         <Route
           path="/cart"
           render={ () => (<ShoppingCart shoppingCart={ shoppingCart } />) }
         />
-        {/* <Route
-          exact
-          path="/productDetails"
-          render={ () => <ProductDetails produto={ productDetail } /> }
-        /> */}
+
         <Route
           exact
           path="/productDetails/:id"
@@ -112,6 +111,7 @@ export default class App extends Component {
             }
           } }
         />
+
       </BrowserRouter>
     );
   }
