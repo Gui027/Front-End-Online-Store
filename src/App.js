@@ -116,6 +116,7 @@ export default class App extends Component {
                   search={ search }
                   setProductComments={ this.setProductComments }
                   productComments={ productComments }
+                  shoppingCart={ shoppingCart }
                 />
               );
             }
