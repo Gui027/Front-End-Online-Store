@@ -14,7 +14,7 @@ export default class App extends Component {
       loadingCategories: true,
       categories: [],
       inputSearch: '',
-      shoppingCart: [1, 2],
+      shoppingCart: [],
       search: [],
       categoryFilter: '',
       categoryFilterOld: '',
@@ -74,6 +74,7 @@ export default class App extends Component {
 
     return (
       <BrowserRouter>
+
         <Route
           exact
           path="/"
@@ -89,10 +90,12 @@ export default class App extends Component {
             />)
           }
         />
+
         <Route
           path="/cart"
           render={ () => (<ShoppingCart shoppingCart={ shoppingCart } />) }
         />
+
         <Route
           exact
           path="/productDetails/:id"
@@ -108,6 +111,7 @@ export default class App extends Component {
             }
           } }
         />
+
       </BrowserRouter>
     );
   }
