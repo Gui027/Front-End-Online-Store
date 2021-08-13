@@ -7,14 +7,13 @@ export default class ProductList extends Component {
     const { produtos } = this.props;
     const { title, thumbnail, price, id } = produtos;
     return (
-      <div>
+      <div id={ id }>
         <Link
           to={ `/productDetails/${id}` }
         >
           <div data-testid="product-detail-link">
             <div
               data-testid="product"
-              id={ id }
             >
               <span data-testid="shopping-cart-product-name">
                 { title }

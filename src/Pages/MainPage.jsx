@@ -13,13 +13,27 @@ class MainPage extends Component {
   }
 
   printList(search) {
+    const { shoppingCart } = this.props;
     return search.map((product) => {
       if (search.length !== 0) {
-        return (<ProductList
-          id={ product.id }
-          key={ product.id }
-          produtos={ product }
-        />);
+        return (
+          <div>
+            <ProductList
+              id={ product.id }
+              key={ product.id }
+              produtos={ product }
+            />
+            <button
+              data-testid="product-add-to-cart"
+              type="submit"
+              onClick={ () => {
+                shoppingCart.push(product);
+              } }
+            >
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        );
       }
       return <p key="0">Nenhum produto foi encontrado</p>;
     });
@@ -88,6 +102,9 @@ MainPage.propTypes = {
   handleChange: PropTypes.func.isRequired,
   searchRequest: PropTypes.func.isRequired,
   search: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+  shoppingCart: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
 };
